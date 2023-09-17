@@ -3,7 +3,8 @@
 
 import unittest
 
-from util.transcript import get_transcript_detail, transcript_to_str, get_transcript_str, get_summarized_transcript
+from util.transcript import get_transcript_detail, transcript_to_str, get_transcript_str, get_summarized_transcript, \
+    binary_search_index
 
 
 class MyTestCaseTranscript(unittest.TestCase):
@@ -21,6 +22,13 @@ class MyTestCaseTranscript(unittest.TestCase):
         video_id = "78vN4sO7FVU"
         summ = get_summarized_transcript(video_id=video_id)
         print(summ)
+
+    def test_binary_search_index(self):
+        video_id = "78vN4sO7FVU"
+        result = get_transcript_detail(video_id=video_id)
+        index = binary_search_index(460.52, result)
+        correct = {'text': 'that if V is a\nBanach space, then', 'start': 460.52, 'duration': 2.85}
+        print(result[index])
 
 if __name__ == '__main__':
     unittest.main()
