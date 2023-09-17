@@ -34,14 +34,18 @@ def get_summarized_transcript(video_id: str, token_size: int = 2600) -> str:
     answer = ""
     for i in range(0, sum_round, token_size):
         text = ''.join(spl_trans_str[i: i + token_size])
-        answer_dict = call_gpt(role_description="you are a good assistant",
-                               prompt=f"Summarize the following passage: \n{text}")
+        answer_dict = call_gpt(
+            role_description="you are a good learning assistant, but to provide student with most immersive "
+                             "experience do not mentioned 'transcript' in your answer, replace it with 'lecture', "
+                             "or 'video'."
+            ,
+            prompt=f"Summarize the following video (from transcript): \n{text}")
         answer += answer_dict["content"]
 
     polished_summary = call_gpt(role_description="you are a good assistant",
                                 prompt=f"Polish the following summary of a video, make it less "
-                                       f"repetitive but do not reduce and inofrmation."
-                                       f"The summary: {answer}")
+                                       f"repetitive but do not reduce the information."
+                                       f"The summary: '{answer}")
     return polished_summary
 
 
@@ -70,6 +74,7 @@ def get_time_stamp_range(interval: int, time_stamp: float, raw_trans: list) -> T
     start_index = binary_search_index(time_stamp=start_ts, raw_trans=raw_trans)
     end_ts = binary_search_index(time_stamp=end_ts, raw_trans=raw_trans)
     return start_index, end_ts
+
 
 def get_context_by_ts(ts: float, raw_trans: list, interval: int):
     start_index, end_ts = get_time_stamp_range(time_stamp=ts,
