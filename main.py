@@ -42,7 +42,7 @@ def post_question():
 
     context = get_context_by_ts(ts=int(time_stamp),
                                 raw_trans=raw_trans,
-                                interval=600)
+                                interval=500)
     return jsonify({
         "answer": ask(context, question_text)
     })

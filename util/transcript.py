@@ -25,7 +25,7 @@ def transcript_to_str(transcript: list) -> str:
     return str_trans
 
 
-def get_summarized_transcript(video_id: str, token_size: int = 2500) -> str:
+def get_summarized_transcript(video_id: str, token_size: int = 2600) -> str:
     trans_str = get_transcript_str(video_id=video_id)
     spl_trans_str = trans_str.split()
     appro_l = len(spl_trans_str)
