@@ -1,6 +1,7 @@
 # Author: ray
 # Date: 9/16/23
 # Description:
+from typing import Tuple
 
 from youtube_transcript_api import YouTubeTranscriptApi
 
@@ -60,3 +61,23 @@ def binary_search_index(time_stamp: float, raw_trans: list) -> int:
         else:
             return m
     return min(l, r)
+
+
+def get_time_stamp_range(interval: int, time_stamp: float, raw_trans: list) -> Tuple[int, int]:
+    target_index = binary_search_index(time_stamp=time_stamp, raw_trans=raw_trans)
+    start_ts = max(0, time_stamp - interval)
+    end_ts = min(raw_trans[-1]["start"], time_stamp + interval)
+    start_index = binary_search_index(time_stamp=start_ts, raw_trans=raw_trans)
+    end_ts = binary_search_index(time_stamp=end_ts, raw_trans=raw_trans)
+    return start_index, end_ts
+
+def get_context_by_ts(ts: float, raw_trans: list, interval: int):
+    start_index, end_ts = get_time_stamp_range(time_stamp=ts,
+                                               interval=interval,
+                                               raw_trans=raw_trans)
+    context_str = ""
+    for i in range(start_index, end_ts + 1):
+        curr_sec = raw_trans[i]
+        context_str += curr_sec["text"].replace("\n", " ") + " "
+
+    return context_str
