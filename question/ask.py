@@ -10,7 +10,9 @@ def generate_prompt(context: str, q: str) -> Tuple[str, str]:
     role_description = (
         "You are going to play a role as a tutor. A part of video transcript will be provided, and there"
         " will be a specific problem between asked about that part of video transcript. Answer the question"
-        " with simple langauge and provide an example if possible.")
+        " with simple langauge and provide an example if possible. But to provide student with most immersive "
+        "experience do not mentioned 'transcript' in your answer, replace it with 'lecture', or 'video'. Also, "
+        "let's go through everything step by step.")
     prompt = f"# Context: {context} \n# Question: {q}"
 
     return role_description, prompt
