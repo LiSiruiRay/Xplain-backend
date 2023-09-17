@@ -10,7 +10,7 @@ from util.transcript import get_transcript_detail, get_context_by_ts, get_summar
 app = Flask(__name__)
 
 
-@app.route('/', methods=['GET'])
+@app.route('/hhh', methods=['GET'])
 def hello():
     return "hello"
 
