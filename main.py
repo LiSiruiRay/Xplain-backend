@@ -6,8 +6,10 @@ from flask import Blueprint, request, jsonify, Flask
 
 from question.ask import ask
 from util.transcript import get_transcript_detail, get_context_by_ts, get_summarized_transcript
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route('/hhh', methods=['GET'])
